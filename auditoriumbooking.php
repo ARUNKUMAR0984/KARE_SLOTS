@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
         $userMail->Host = 'smtp.gmail.com'; // Replace with your SMTP server address
         $userMail->SMTPAuth = true;
         $userMail->Username = 'arunkumar97462@gmail.com'; // Replace with your SMTP username
-        $userMail->Password = 'endk xtrk xvci cuuv'; // Replace with your SMTP password
+        $userMail->Password = ''; // Replace with your SMTP password
         $userMail->SMTPSecure = 'ssl'; // Use 'tls' or 'ssl' based on your SMTP server
         $userMail->Port = 465; // The SMTP port
     
@@ -219,38 +219,45 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book slot</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <LINK  rel="icon" href="kare_logo-removebg-preview.png" type="image/X - icon">
+    <LINK rel="icon" href="kare_logo-removebg-preview.png" type="image/X - icon">
     <style>
-        .forms-group button {
-    margin-bottom: 10px; /* Adjust the margin as needed */
-}
-
-        </style>
-        <style>
-        /* Style the marquee container */
-        .marquee-container {
-            background-color: #333; /* Background color */
-            color: #fff; /* Text color */
-            padding: 10px;
-            font-size: 10px;
-            font-weight: bold;
-            text-align: center;
-        }
+    .forms-group button {
+        margin-bottom: 10px;
+        /* Adjust the margin as needed */
+    }
+    </style>
+    <style>
+    /* Style the marquee container */
+    .marquee-container {
+        background-color: #333;
+        /* Background color */
+        color: #fff;
+        /* Text color */
+        padding: 10px;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+    }
     </style>
 </head>
+
 <body>
-<div class="marquee-container">
-        <marquee class="marquee-content"><strong>HELLO, <?php echo $user_data['user_name']; ?> BOOK YOUR SLOTS AUDITORIUM</strong></marquee>
+    <div class="marquee-container">
+        <marquee class="marquee-content"><strong>HELLO, <?php echo $user_data['user_name']; ?> BOOK YOUR SLOTS
+                AUDITORIUM</strong></marquee>
     </div>
     <br><br>
-<center><h2>AUDITORIUM</h2></center>
+    <center>
+        <h2>AUDITORIUM</h2>
+    </center>
     <div class="container">
-    <h1 class="text-center">Book for Date: <?php echo date('d-m-Y', strtotime($date)); ?></h1>
+        <h1 class="text-center">Book for Date: <?php echo date('d-m-Y', strtotime($date)); ?></h1>
         <hr>
         <div class="row">
             <div class="col-md-12">
@@ -263,16 +270,16 @@ if ($result && mysqli_num_rows($result) > 0) {
 
             foreach ($timeslots as $ts) {
                 ?>
-                <div class="col-md-<?php echo $columnWidth; ?>">
-                    <div class="forms-group">
-                        <?php if (in_array($ts, $users)) { ?>
-                            <button class="btn btn-danger"><?php echo $ts; ?></button>
-                        <?php } else { ?>
-                            <button class="btn btn-success book" data-timeslot="<?php echo $ts; ?>"><?php echo $ts; ?></button>
-                        <?php } ?>
-                    </div>
+            <div class="col-md-<?php echo $columnWidth; ?>">
+                <div class="forms-group">
+                    <?php if (in_array($ts, $users)) { ?>
+                    <button class="btn btn-danger"><?php echo $ts; ?></button>
+                    <?php } else { ?>
+                    <button class="btn btn-success book" data-timeslot="<?php echo $ts; ?>"><?php echo $ts; ?></button>
+                    <?php } ?>
                 </div>
-                <?php
+            </div>
+            <?php
             }
             ?>
         </div>
@@ -290,78 +297,93 @@ if ($result && mysqli_num_rows($result) > 0) {
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="" method="post"> 
+                            <form action="" method="post">
                                 <div class="form-group">
                                     <label for="">TIMESLOT</label>
-                                    <input required type="text" readonly name="timeslot" id="timeslot" class="form-control">
+                                    <input required type="text" readonly name="timeslot" id="timeslot"
+                                        class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="">NAME</label>
-                                    <input required type="text" readonly name="name" id="name" class="form-control" value="<?php echo $user_name; ?>">
+                                    <input required type="text" readonly name="name" id="name" class="form-control"
+                                        value="<?php echo $user_name; ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Email</label>
-                                    <input required type="email" readonly name="email" id="email" class="form-control" value="<?php echo $user_email; ?>" pattern="[0-9]+@klu.ac.in" title="Enter a valid email address with the domain 'klu.ac.in'">
+                                    <input required type="email" readonly name="email" id="email" class="form-control"
+                                        value="<?php echo $user_email; ?>" pattern="[0-9]+@klu.ac.in"
+                                        title="Enter a valid email address with the domain 'klu.ac.in'">
                                 </div>
-                                
+
                                 <div class="form-group">
-                                <label for="">VENUE</label>
-                                <input required type="text" readonly name="venue" id="venue" class="form-control" value="AUDITORIUM">
-                            </div>
-                            <div class="form-group">
-    <label for="">PHONE NUMBER</label>
-    <input type="phonenumber" id="phonenumber" placeholder="Enter your phone number" class="form-control" readonly name="phonenumber" value="<?php echo $phonenumber; ?>" required>
-</div>
-<div class="form-group">
-    <label for="">Register Number</label>
-    <input type="phonenumber" id="registernumber" placeholder="Enter your register number" class="form-control" readonly name="registernumber" value="<?php echo $registerNumber; ?>" required>
-</div>
-<div class="form-group">
-    <label for="">Purpose of booking:</label>
-    <textarea type="text" id="purpose" placeholder="Enter the purpose of the event" class="form-control" name="purpose"  rows="4" cols="50" required></textarea>
-</div>
-<div class="form-group">
-    <label for="">Requirements</label>
-    <textarea type="text" id="requirement" placeholder="Enter your event Requirements like sound systems,sanitization,wifi etc.." class="form-control" name="requirement"  rows="4" cols="50" required></textarea><br><br>
-</div>
-                            <div class="form-group pull-right">
+                                    <label for="">VENUE</label>
+                                    <input required type="text" readonly name="venue" id="venue" class="form-control"
+                                        value="AUDITORIUM">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">PHONE NUMBER</label>
+                                    <input type="phonenumber" id="phonenumber" placeholder="Enter your phone number"
+                                        class="form-control" readonly name="phonenumber"
+                                        value="<?php echo $phonenumber; ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Register Number</label>
+                                    <input type="phonenumber" id="registernumber"
+                                        placeholder="Enter your register number" class="form-control" readonly
+                                        name="registernumber" value="<?php echo $registerNumber; ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Purpose of booking:</label>
+                                    <textarea type="text" id="purpose" placeholder="Enter the purpose of the event"
+                                        class="form-control" name="purpose" rows="4" cols="50" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Requirements</label>
+                                    <textarea type="text" id="requirement"
+                                        placeholder="Enter your event Requirements like sound systems,sanitization,wifi etc.."
+                                        class="form-control" name="requirement" rows="4" cols="50"
+                                        required></textarea><br><br>
+                                </div>
+                                <div class="form-group pull-right">
                                     <button class="btn btn-primary" type="submit" name="submit">Submit</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
         </div>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <script>
-        $(".book").click(function (){
-            var timeslot = $(this).attr('data-timeslot');
-            $("#slot").html(timeslot);
-            $("#timeslot").val(timeslot);
-            $("#myModal").modal("show");
-        });
+    $(".book").click(function() {
+        var timeslot = $(this).attr('data-timeslot');
+        $("#slot").html(timeslot);
+        $("#timeslot").val(timeslot);
+        $("#myModal").modal("show");
+    });
     </script>
-            <center></div>
-                    
-                    <a class="btn btn-primary" href="index.php" id="button">Home</a><br><br>
-                    <a class="btn btn-primary" href="auditoriumcalender.php" id="button">Back to calendar</a><br><br>
-            </div></center>
-            <script>
-    $(document).ready(function () {
+    <center>
+        </div>
+
+        <a class="btn btn-primary" href="index.php" id="button">Home</a><br><br>
+        <a class="btn btn-primary" href="auditoriumcalender.php" id="button">Back to calendar</a><br><br>
+        </div>
+    </center>
+    <script>
+    $(document).ready(function() {
         // Function to check and disable slots for the current date and time
         function checkSlotsForCurrentTime() {
             var now = new Date();
             var currentTime = now.getHours() * 60 + now.getMinutes(); // Convert current time to minutes
             var currentDate = now.toISOString().slice(0, 10); // Get the current date in YYYY-MM-DD format
 
-            $(".book").each(function () {
+            $(".book").each(function() {
                 var timeslot = $(this).attr('data-timeslot');
                 var slotParts = timeslot.split('-');
                 var startSlot = slotParts[0].trim();
@@ -382,8 +404,8 @@ if ($result && mysqli_num_rows($result) > 0) {
         // Call the function on page load
         checkSlotsForCurrentTime();
     });
-</script>
-        
+    </script>
+
 </body>
 
 

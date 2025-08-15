@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
         $userMail->Host = 'smtp.gmail.com'; // Replace with your SMTP server address
         $userMail->SMTPAuth = true;
         $userMail->Username = 'arunkumar97462@gmail.com'; // Replace with your SMTP username
-        $userMail->Password = 'endk xtrk xvci cuuv'; // Replace with your SMTP password
+        $userMail->Password = ''; // Replace with your SMTP password
         $userMail->SMTPSecure = 'ssl'; // Use 'tls' or 'ssl' based on your SMTP server
         $userMail->Port = 465; // The SMTP port
     

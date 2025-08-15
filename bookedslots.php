@@ -148,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['date']) && isset($_GET['
         $mail->Host = 'smtp.gmail.com'; // Replace with your SMTP server address
         $mail->SMTPAuth = true;
         $mail->Username = 'arunkumar97462@gmail.com'; // Replace with your SMTP username
-        $mail->Password = 'endk xtrk xvci cuuv'; // Replace with your SMTP password
+        $mail->Password = ''; // Replace with your SMTP password
         $mail->SMTPSecure = 'ssl'; // Use 'tls' or 'ssl' based on your SMTP server
         $mail->Port = 465; // The SMTP port
 
@@ -209,6 +209,7 @@ $currentTimestamp = time();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -216,82 +217,90 @@ $currentTimestamp = time();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="icon" href="kare_logo-removebg-preview.png" type="image/X-icon">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
 
-        h1 {
-            text-align: center;
-            color: #333;
-        }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
 
-        .booked-slots {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
+    .booked-slots {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
 
-        .booked-slots th,
-        .booked-slots td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
+    .booked-slots th,
+    .booked-slots td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
 
-        .booked-slots th {
-            background-color: #333;
-            color: #fff;
-        }
+    .booked-slots th {
+        background-color: #333;
+        color: #fff;
+    }
 
-        .booked-slots tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .button-container {
-            text-align: center; /* Center align the buttons horizontally */
-        }
+    .booked-slots tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-        .button-container a {
-            margin: 0 10px; /* Add some horizontal spacing between the buttons */
-            display: inline-block; /* Display buttons inline */
-        }
+    .button-container {
+        text-align: center;
+        /* Center align the buttons horizontally */
+    }
+
+    .button-container a {
+        margin: 0 10px;
+        /* Add some horizontal spacing between the buttons */
+        display: inline-block;
+        /* Display buttons inline */
+    }
     </style>
     <style>
-        /* Style the marquee container */
-        .marquee-container {
-            background-color: #333; /* Background color */
-            color: #fff; /* Text color */
-            padding: 10px;
-            font-size: 10px;
-            font-weight: bold;
-            text-align: center;
-        }
+    /* Style the marquee container */
+    .marquee-container {
+        background-color: #333;
+        /* Background color */
+        color: #fff;
+        /* Text color */
+        padding: 10px;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+    }
     </style>
 </head>
+
 <body>
-<div class="marquee-container">
-    <marquee class="marquee-content"><strong>HELLO, <?php echo $user_data['user_name']; ?> YOUR BOOKED SLOTS</strong></marquee>
-</div>
+    <div class="marquee-container">
+        <marquee class="marquee-content"><strong>HELLO, <?php echo $user_data['user_name']; ?> YOUR BOOKED
+                SLOTS</strong></marquee>
+    </div>
 
-<div class="container">
-<div class="button-container">
-    <a class="btn btn-primary" href="index.php" id="button">Home</a><br><br>
-    <a class="btn btn-primary" href="ticket available.php" id="button">EVENTS BOOKED</a><br><br>
-    </div><br><br>
-    <h1>Booked Slots</h1>
+    <div class="container">
+        <div class="button-container">
+            <a class="btn btn-primary" href="index.php" id="button">Home</a><br><br>
+            <a class="btn btn-primary" href="ticket available.php" id="button">EVENTS BOOKED</a><br><br>
+        </div><br><br>
+        <h1>Booked Slots</h1>
 
-    <?php
+        <?php
     // Separate events by date
     $eventsByDate = [];
 
@@ -312,48 +321,54 @@ $currentTimestamp = time();
         <h2><?= date('d-m-Y', strtotime($date)) ?></h2>
         <table class="booked-slots">
             <thead>
-            <tr>
-                <th>Venue</th>
-                <th>Date</th>
-                <th>Time Slot</th>
-                <th>Status</th>
-                <th>Invoice</th>
-                <th>Action</th>
-            </tr>
+                <tr>
+                    <th>Venue</th>
+                    <th>Date</th>
+                    <th>Time Slot</th>
+                    <th>Status</th>
+                    <th>Invoice</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
-            <?php foreach ($events as $booking): ?>
-    <tr>
-        <td><?= isset($venueMappings[$booking['venue']]) ? $venueMappings[$booking['venue']] : $booking['venue'] ?></td>
-        <td><?= date('d-m-y', strtotime($booking['date'])) ?></td> <!-- Change the date format here -->
-        <td><?= $booking['timeslot'] ?></td>
-        <td><?= isset($booking['status']) ? $booking['status'] : 'N/A' ?></td> <!-- Check if 'status' exists -->
-        <td><form method="post" action="">
-        <button class="btn btn-primary" name="invoice" id="invoice">Generate Invoice</button>
-    </form></td>
-        <td><a href="?date=<?= $booking['date'] ?>&timeslot=<?= $booking['timeslot'] ?>"
-               type="button" class="btn btn-danger">Cancel</a></td>
-    </tr>
-<?php endforeach; ?>
+                <?php foreach ($events as $booking): ?>
+                <tr>
+                    <td><?= isset($venueMappings[$booking['venue']]) ? $venueMappings[$booking['venue']] : $booking['venue'] ?>
+                    </td>
+                    <td><?= date('d-m-y', strtotime($booking['date'])) ?></td> <!-- Change the date format here -->
+                    <td><?= $booking['timeslot'] ?></td>
+                    <td><?= isset($booking['status']) ? $booking['status'] : 'N/A' ?></td>
+                    <!-- Check if 'status' exists -->
+                    <td>
+                        <form method="post" action="">
+                            <button class="btn btn-primary" name="invoice" id="invoice">Generate Invoice</button>
+                        </form>
+                    </td>
+                    <td><a href="?date=<?= $booking['date'] ?>&timeslot=<?= $booking['timeslot'] ?>" type="button"
+                            class="btn btn-danger">Cancel</a></td>
+                </tr>
+                <?php endforeach; ?>
 
             </tbody>
         </table>
 
-    <?php endforeach; ?>
-</div>
+        <?php endforeach; ?>
+    </div>
 
-<script>
+    <script>
     function confirmCancellation(date, timeslot, venue) {
-        var confirmation = confirm("Are you sure you want to cancel the booking for " + venue + " on " + date + " at " + timeslot + "?");
-        
+        var confirmation = confirm("Are you sure you want to cancel the booking for " + venue + " on " + date + " at " +
+            timeslot + "?");
+
         if (confirmation) {
             // Redirect to the cancellation URL
             window.location.href = "bookedslots.php?date=" + date + "&timeslot=" + timeslot;
         }
     }
-</script>
+    </script>
 
 
 
 </body>
+
 </html>
