@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add these links to your head section -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <title>Concert Booking System</title>
+    <style>
+        /* Add your CSS styles for the stage layout here */
+        .seat-column {
+            display: inline-block;
+            width: 300px; /* You can adjust this width for spacing as needed */
+            margin-right: 2%; /* Adjust margin for spacing */
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .seat {
+            width: 100%;
+            height: 90px;
+            line-height: 50px;
+            background-color: lightseagreen; /* Same as the Platinum category */
+        }
+
+        .seat1 {
+            width: 450px;
+            height: 80px;
+            margin: 5px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            background-color: lightgrey; /* Platinum */
+        }
+
+        /* Different background colors for each category */
+        .seat[data-category="Gold"] {
+            background-color: lightblue; /* Gold */
+        }
+
+        .seat[data-category="Silver"] {
+            background-color: lightgreen; /* Silver */
+        }
+
+        .seat[data-category="Platinum"] {
+            background-color: lightseagreen; /* Platinum */
+        }
+
+        .seat.booked {
+            background-color: #f00; /* Booked seats are shown in red */
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <center><h1>SPARKZ 2K24</h1></center>
+    <div>
+        <center>
+            <div id="stage">
+                <div class="seat1" data-category="Stage" data-price="200" placeholder="Gold"><strong>Stage</strong></div>
+            </div>
+       
+
+        <div class="seat-column">
+            <h3>Boys</h3>
+            <div class="seat" data-category="Platinum" data-price="200" data-booked-count="0"><strong>Platinum</strong></div>
+<!-- Add similar data attributes for Gold and Silver categories -->
+<br>
+            <div class="seat" data-category="Gold" data-price="150" data-booked-count="0"><strong>Gold</strong></div><br>
+            <div class="seat" data-category="Silver" data-price="100" data-booked-count="0"><strong>Silver</strong></div><br>
+            <!-- Add more seats for other categories as needed -->
+        </div>
+
+        <div class="seat-column">
+            <h3>Girls</h3>
+            <div class="seat" data-category="Platinum" data-price="200" data-booked-count="0"><strong>Platinum</strong></div><br>
+            <div class="seat" data-category="Gold" data-price="150" data-booked-count="0"><strong>Gold</strong></div><br>
+            <div class="seat" data-category="Silver" data-price="100" data-booked-count="0"><strong>Silver</strong></div><br>
+            <!-- Add more seats for other categories as needed -->
+        </div>
+    </div> </center>
+
+    <div>
+        <h2>Selected Seat</h2>
+        <p id="selected-seat"></p>
+        <p>Total Price: $<span id="total-price">0</span></p>
+        <button id="book-btn" data-toggle="modal" data-target="#seatBookingModal">Book Seat</button>
+
+    </div>
+    <!-- Modal -->
+<div class="modal fade" id="seatBookingModal" tabindex="-1" role="dialog" aria-labelledby="seatBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="seatBookingModalLabel">Seat Booking</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Add your booking form here -->
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" class="form-control" id="phone" required>
+                    </div>
+                    <!-- Add more fields as needed -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitBooking">Submit Booking</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        const seats = document.querySelectorAll('.seat');
+        const selectedSeat = document.getElementById('selected-seat');
+        const totalPrice = document.getElementById('total-price');
+        const bookBtn = document.getElementById('book-btn');
+
+        let selectedCategory = '';
+        let selectedPrice = 0;
+
+        // Function to update the selected seat and total price
+        function updateSelectedSeat() {
+            selectedSeat.textContent = `Selected Seat: ${selectedCategory}`;
+            totalPrice.textContent = selectedPrice;
+        }
+
+        // Function to handle seat selection
+        // Function to handle seat selection
+// Function to handle seat selection
+// Function to handle seat selection
+function selectSeat(e) {
+    const seat = e.target;
+
+    if (seat.classList.contains('booked')) {
+        alert('This seat is already booked.');
+        return;
+    }
+
+    selectedCategory = seat.getAttribute('data-category');
+    selectedPrice = parseInt(seat.getAttribute('data-price'));
+
+    // Remove any existing selected class
+    seats.forEach((s) => s.classList.remove('selected'));
+
+    // Add selected class to the clicked seat
+    seat.classList.add('selected');
+
+    // Update the booked seat count for the selected category
+    const bookedCount = parseInt(seat.getAttribute('data-booked-count')) + 1;
+    seat.setAttribute('data-booked-count', bookedCount);
+
+    // Check if all seats in the category are booked and turn it red if so
+    if (bookedCount === 10) {
+        seats.forEach((s) => {
+            if (s.getAttribute('data-category') === selectedCategory) {
+                s.classList.add('booked');
+            }
+        });
+    }
+
+    updateSelectedSeat();
+
+    // Open the modal here
+    document.getElementById('bookingForm').reset();
+    $('#seatBookingModal').modal('show');
+}
+
+
+
+        // Function to handle seat booking
+        // Function to handle seat booking
+function bookSeat() {
+    if (!selectedCategory) {
+        alert('Please select a seat first.');
+        return;
+    }
+
+    alert(`You have booked a ${selectedCategory} seat for $${selectedPrice}.`);
+
+    // Mark the selected seat as booked
+    seats.forEach((seat) => {
+        if (seat.classList.contains('selected')) {
+            seat.classList.remove('selected');
+            seat.classList.add('booked');
+
+            // Decrement the booked seat count for the selected category
+            if (seat.getAttribute('data-category') === selectedCategory) {
+                const bookedCount = parseInt(seat.getAttribute('data-booked-count')) - 1;
+                seat.setAttribute('data-booked-count', bookedCount);
+            }
+        }
+    });
+
+    // Clear selected seat and price
+    selectedCategory = '';
+    selectedPrice = 0;
+
+    updateSelectedSeat();
+}
+
+
+        // Add click event listeners to seats
+        seats.forEach((seat) => {
+            seat.addEventListener('click', selectSeat);
+        });
+
+        // Add click event listener to book button
+        bookBtn.addEventListener('click', bookSeat);
+
+        // Change this line to open the modal
+bookBtn.addEventListener('click', () => {
+    // Clear form fields when the modal is opened
+    document.getElementById('bookingForm').reset();
+    $('#seatBookingModal').modal('show');
+});
+
+// Add an event listener to the "Submit Booking" button in the modal
+document.getElementById('submitBooking').addEventListener('click', () => {
+    // Retrieve the form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+
+    // Validate the form data (you can add more validation)
+    if (!name || !email || !phone) {
+        alert('Please fill out all fields.');
+        return;
+    }
+
+    // Perform further actions with the form data (e.g., submit to the server)
+    // ...
+
+    // Close the modal
+    $('#seatBookingModal').modal('hide');
+});
+
+    </script>
+</body>
+</html>
